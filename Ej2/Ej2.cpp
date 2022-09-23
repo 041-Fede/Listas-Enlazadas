@@ -16,42 +16,49 @@ struct Inscriptos
     string Nombre;
 };
 
-struct NodoLista
+struct Nodo
 {
     Inscriptos Info;
-    NodoLista*Sig;
+    Nodo*Sig;
 };
 
-void Punto1(NodoLista*&Primero);
-void Punto2(NodoLista*&Primero,int Nro);
-void Punto3(NodoLista*&Primero);
-void Punto4(NodoLista*&Primero);
-void Encolar(NodoLista*&Primero,Inscriptos Dato);
+void Punto1(Nodo*&Lista);
+void Punto2(Nodo*&Lista,int DNI);
+void Punto3(Nodo*&Lista);
+void Punto4(Nodo*Lista);
+void Insertar(Nodo*&Lista,Inscriptos Dato);
+void Apilar(Nodo*&Pila,Inscriptos Dato);
+void Desapilar(Nodo*&Pila,Inscriptos &Dato);
 
 int main()
 {
     int DNI;
-    NodoLista *Primero = NULL;
+    Nodo *Lista = NULL;
 
-    Punto1(Primero);
+    Punto1(Lista);
 
     cout << "---------------------------------" << endl;
     cout << "INFORME dni de la persona que no asistira al curso: ";
     cin >> DNI;
 
-    Punto2(Primero,DNI);
+    Punto2(Lista,DNI);
 
     cout << "---------------------------------" << endl;
     cout << "Lista actualizada: " << endl;
 
-    Punto3(Primero);
+    Punto3(Lista);
+
+    cout << "---------------------------------" << endl;
+    cout << "Lista en orden inverso: " << endl;
+
+    Punto4(Lista);
 
     cout << "---------------------------------" << endl;
 
     return 0;
 }
 
-void Punto1(NodoLista*&Primero)
+void Punto1(Nodo*&Lista)
 {
     Inscriptos I;
 
@@ -63,7 +70,7 @@ void Punto1(NodoLista*&Primero)
         cout << "INFORME nombre del alumno: ";
         cin >> I.Nombre;
 
-        Insertar(Primero,I);
+        Insertar(Lista,I);
 
         cout << "---------------------------------" << endl;
         cout << "INFORME dni del siguiente alumno (0 para finalizar): ";
@@ -72,19 +79,19 @@ void Punto1(NodoLista*&Primero)
 }
 
 
-void Punto2(NodoLista*&Primero,int Nro)
+void Punto2(Nodo*&Lista,int DNI)
 {
-    NodoLista *Aux;
-    NodoLista *Aux2;
-    Aux = Primero;
+    Nodo *Aux;
+    Nodo *Aux2;
+    Aux = Lista;
 
     while(Aux != NULL)
     {
-        if(Aux->Info.DNI == Nro)
+        if(Aux->Info.DNI == DNI)
         {
-            if(Aux == Primero)
+            if(Aux == Lista)
             {
-                Primero = Aux->Sig;
+                Lista = Aux->Sig;
             }
             else
             {
@@ -99,10 +106,10 @@ void Punto2(NodoLista*&Primero,int Nro)
     }
 }
 
-void Punto3(NodoLista*&Primero)
+void Punto3(Nodo*&Lista)
 {
-    NodoLista *Aux;
-    Aux = Primero;
+    Nodo *Aux;
+    Aux = Lista;
 
     while(Aux != NULL)
     {
@@ -112,12 +119,33 @@ void Punto3(NodoLista*&Primero)
     }
 }
 
-void Insertar(NodoLista*&Primero,Inscriptos Dato)//Inserta elementos a la lista conservando el orden
+void Punto4(Nodo*Lista)
 {
-    NodoLista *Nuevo,*Antecesor,*Aux;
-    Nuevo = new NodoLista;
+    Inscriptos I;
+    Nodo *Aux = Lista;
+    Nodo *PilaAux = NULL;
+
+    while(Aux != NULL)
+    {
+        Apilar(PilaAux,Aux->Info);
+
+        Aux = Aux->Sig;
+    }
+
+    while(PilaAux != NULL)
+    {
+        Desapilar(PilaAux,I);
+
+        cout << "DNI del alumno: " << I.DNI << " - " << "Nombre del alumno: " << I.Nombre << endl;
+    }
+}
+
+void Insertar(Nodo*&Lista,Inscriptos Dato)//Inserta elementos a la lista conservando el orden
+{
+    Nodo *Nuevo,*Antecesor,*Aux;
+    Nuevo = new Nodo;
     Nuevo->Info = Dato;
-    Aux = Primero;
+    Aux = Lista;
 
     while(Aux != NULL && Aux->Info.DNI < Dato.DNI)
     {
@@ -127,13 +155,31 @@ void Insertar(NodoLista*&Primero,Inscriptos Dato)//Inserta elementos a la lista 
 
     Nuevo->Sig = Aux;
 
-    if(Aux != Primero)
+    if(Aux != Lista)
     {
         Antecesor->Sig = Nuevo;
     }
     else
     {
-        Primero = Nuevo;
+        Lista = Nuevo;
     }
 
+}
+
+void Apilar(Nodo*&Pila,Inscriptos Dato)
+{
+    Nodo *Aux = new Nodo;
+    Aux->Info = Dato;
+    Aux->Sig = Pila;
+    Pila = Aux;
+}
+
+void Desapilar(Nodo*&Pila,Inscriptos &Dato)
+{
+    Nodo *Aux;
+    Aux = Pila;
+    Dato = Aux->Info;
+    Pila = Aux->Sig;
+
+    delete Aux;
 }
