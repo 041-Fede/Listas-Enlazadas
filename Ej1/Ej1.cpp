@@ -1,3 +1,9 @@
+/*Se tiene ordenada por código de producto una lista simplemente enlazada donde cada nodo contiene: código, descripción, importe y stock. 
+Hacer funciones para: 
+a. dado un entero K, imprimir el k-ésimo elemento.
+b. incrementar en un 10% el importe de un producto dado su código.
+c. devolver el stock de un producto dado ó cero si no se lo encuentra.*/
+
 
 #include <iostream>
 
