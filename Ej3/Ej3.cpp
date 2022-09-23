@@ -1,3 +1,5 @@
+/*Hacer una función que devuelva la lista del ejercicio 2 ordenada alfabéticamente.*/
+
 #include <iostream>
 
 using namespace std;
