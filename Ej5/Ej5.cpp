@@ -1,4 +1,4 @@
-/*Dadas dos listas definidas como en el ejercicio 1, conteniendo la informaci髇 de productos diferentes manufacturados en dos f醔ricas, se pide hacer una funci髇 que devuelva otra  lista ordenada por c骴igo de producto conteniendo la totalidad de la informaci髇.  */
+/*Dadas dos listas definidas como en el ejercicio 1, conteniendo la informaci贸n de productos diferentes manufacturados en dos f谩bricas, se pide hacer una funci贸n que devuelva otra  lista ordenada por c贸digo de producto conteniendo la totalidad de la informaci贸n.  */
 
 #include <iostream>
 
@@ -10,15 +10,15 @@ struct Productos
     string Descripcion;
 };
 
-void CargaDeDatos(Nodo*&Lista);
-void Insertar(Nodo*&Lista,Inscriptos Dato);
-void ApareoParaListas(Nodo*ListaPrincipal,Nodo*ListaSecundaria,Nodo*&ListaResultante);
-
 struct Nodo
 {
     Productos Info;
     Nodo *Sgte;
 };
+
+void CargaDeDatos(Nodo*&Lista);
+void Insertar(Nodo*&Lista,Productos Dato);
+void ApareoParaListas(Nodo*ListaPrincipal,Nodo*ListaSecundaria,Nodo*&ListaResultante);
 
 int main()
 {
@@ -73,7 +73,7 @@ void CargaDeDatos(Nodo*&Lista)
     }
 }
 
-void Insertar(Nodo*&Lista,Inscriptos Dato)
+void Insertar(Nodo*&Lista,Productos Dato)
 {
     Nodo *Aux;
     Nodo *Nuevo = new Nodo;
