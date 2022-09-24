@@ -100,7 +100,7 @@ void OrdenarLista(Nodo*&Lista)
 
         while(Siguiente != NULL)
         {
-            if(Actual->Info.DNI > Siguiente->Info.DNI)
+            if(Actual->Info.Nombre > Siguiente->Info.Nombre)
             {
                 I = Siguiente->Info;
                 Siguiente->Info = Actual->Info;
