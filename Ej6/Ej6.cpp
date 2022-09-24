@@ -1,4 +1,4 @@
-/*Dada la lista definida en el ejercicio 1 conteniendo productos repetidos, hacer una función que deje en la lista un solo nodo por producto con el stock sumado. */
+/*Dada la lista definida en el ejercicio 1 conteniendo productos repetidos, hacer una funciÃ³n que deje en la lista un solo nodo por producto con el stock sumado. */
 
 #include <iostream>
 
@@ -18,20 +18,20 @@ struct Nodo
 
 void CargaDeDatos(Nodo*&Lista);
 void Insertar(Nodo*&Lista,Productos Dato);
-void CorteDeControlListas(Nodo*Lista,Nodo*&ListaResultante);
+void CorteDeControlListas(Nodo*Lista);
 void MostrarLista(Nodo*Lista);
 
 int main()
 {
-    Nodo *Lista = NULL,*ListaResultante = NULL;
+    Nodo *Lista = NULL;
 
     CargaDeDatos(Lista);
 
-    CorteDeControlListas(Lista,ListaResultante);
+    CorteDeControlListas(Lista);
 
     cout << "Lista resultante:" << endl;
 
-    MostrarLista(ListaResultante);
+    MostrarLista(Lista);
 
     cout << "---------------------------------" << endl;
 
@@ -64,7 +64,7 @@ void CargaDeDatos(Nodo*&Lista)
     }
 }
 
-void Insertar(Nodo*&Lista,Inscriptos Dato)
+void Insertar(Nodo*&Lista,Productos Dato)
 {
     Nodo *Aux;
     Nodo *Nuevo = new Nodo;
@@ -91,8 +91,7 @@ void Insertar(Nodo*&Lista,Inscriptos Dato)
 void CorteDeControlListas(Nodo*Lista,Nodo*&ListaResultante)
 {
     int Stock = 0;
-    Nodo *Actual = Lista;
-    Nodo *Siguiente;
+    Nodo *Actual = Lista,*Siguiente,*Aux;
 
     while(Actual != NULL)
     {
@@ -101,13 +100,14 @@ void CorteDeControlListas(Nodo*Lista,Nodo*&ListaResultante)
         while(Siguiente != NULL && Actual->Info.CodDeProducto == Siguiente->Info.CodDeProducto)
         {
             Stock = Stock + Siguiente->Info.Stock;
+            Aux = Siguiente;
             Siguiente = Siguiente->Sgte;
+
+            delete Aux;
         }
 
         Actual->Info.Stock = Actual->Info.Stock + Stock;
-
-        Insertar(ListaResultante,Actual->Info);
-
+        Actual->Sgte = Siguiente;
         Actual = Siguiente;
         Stock = 0;
     }
