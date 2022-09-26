@@ -88,7 +88,7 @@ void Insertar(Nodo*&Lista,Productos Dato)
     }
 }
 
-void CorteDeControlListas(Nodo*Lista,Nodo*&ListaResultante)
+void CorteDeControlListas(Nodo*Lista)
 {
     int Stock = 0;
     Nodo *Actual = Lista,*Siguiente,*Aux;
