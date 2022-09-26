@@ -1,4 +1,4 @@
-/*Dada la lista del ejercicio 1, hacer una función que devuelva dos listas una con los productos cuyo stock sea inferior a 50 unidades y otra con los restantes*/
+/*Dada la lista del ejercicio 1, hacer una funciÃ³n que devuelva dos listas una con los productos cuyo stock sea inferior a 50 unidades y otra con los restantes*/
 
 #include <iostream>
 
@@ -17,7 +17,7 @@ struct Nodo
 };
 
 void Punto1(Nodo*Lista,Nodo*&ListaStock,Nodo*ListaRestante);
-void CargaDeDatos(Nodo*&ListaPrincipal);
+void CargaDeDatos(Nodo*&Lista);
 void Insertar(Nodo*&Lista,Productos Dato);
 void MostrarLista(Nodo*Lista);
 
@@ -45,7 +45,7 @@ int main()
     return 0;
 }
 
-void CargaDeDatos(Nodo*&ListaPrincipal)
+void CargaDeDatos(Nodo*&Lista)
 {
     Productos P;
 
@@ -63,7 +63,7 @@ void CargaDeDatos(Nodo*&ListaPrincipal)
         cout << "INFORME stock del producto: ";
         cin >> P.Stock;
 
-        Insertar(ListaPrincipal,P);
+        Insertar(Lista,P);
 
         cout << "---------------------------------" << endl;
         cout << "INFORME codigo del siguiente producto (0 para finalizar): ";
