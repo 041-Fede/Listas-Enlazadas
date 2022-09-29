@@ -13,12 +13,13 @@ struct Inscriptos
 struct Nodo
 {
     Inscriptos Info;
-    Nodo *Sig;
+    Nodo *Sgte;
 };
 
 void CargaDeDatos(Nodo*&Lista);
-void Insertar(Nodo*&Lista,Inscriptos Dato);
+void InsertarAdelante(Nodo*&Lista,Inscriptos Dato);
 void OrdenarLista(Nodo*&Lista);
+void InsertarLogico(Nodo*&Lista,Nodo*Nuevo);
 void MostrarLista(Nodo*Lista);
 
 int main()
@@ -50,32 +51,54 @@ void CargaDeDatos(Nodo*&Lista)
         cout << "INFORME nombre del alumno: ";
         cin >> I.Nombre;
 
-        Insertar(Lista,I);
+        InsertarAdelante(Lista,I);
 
         cout << "---------------------------------" << endl;
-        cout << "INFORME dni del siguiente alumno (0 para finalizar): ";
+        cout << "INFORME dni del Sgteuiente alumno (0 para finalizar): ";
         cin >> I.DNI;
     }
 }
 
-
-void Insertar(Nodo*&Lista,Inscriptos Dato)
+void InsertarAdelante(Nodo*&Lista,Inscriptos dato)//Mucho más eficiente que ir agredando de atras. Toma la logica de los punteros de las pilas!
 {
-    Nodo *Aux;
     Nodo *Nuevo = new Nodo;
     Nuevo->Info = Dato;
-    Nuevo->Sig = NULL;
+    Nuevo->Sgte = lista;
+    Lista = Nuevo;
+}
 
-    if(Lista != NULL)
+void OrdenarLista(Nodo*&Lista)
+{
+    Nodo *ListaOrd = NULL;
+    Nodo *Nuevo;
+
+    while(Lista!=NULL)
     {
-        Aux = Lista;
+        Nuevo = Lista;
+        Lista = Lista->Sgte;
 
-        while(Aux->Sig != NULL)
-        {
-            Aux = Aux->Sig;
-        }
+        InsertarLogico(ListaOrd,Aux);
+    }
 
-        Aux->Sig = Nuevo;
+    Lista = ListaOrd;
+}
+
+void InsertarLogico(Nodo*&Lista,Nodo*Nuevo)//Inserta elementos a la lista conservando el orden
+{
+    Nodo *Aux,*Antecesor;
+    Aux = Lista;
+
+    while(Aux != NULL && Aux->Info.Nombre < Nuevo->Info.Nombre)
+    {
+        Antecesor = Aux;
+        Aux = Aux->Sgte;
+    }
+
+    Nuevo->Sgte = Aux;
+
+    if(Aux != Lista)
+    {
+        Antecesor->Sgte = Nuevo;
     }
     else
     {
@@ -83,32 +106,6 @@ void Insertar(Nodo*&Lista,Inscriptos Dato)
     }
 }
 
-void OrdenarLista(Nodo*&Lista)
-{
-    Nodo *Actual,*Siguiente;
-    Inscriptos I;
-
-    Actual = Lista;
-
-    while(Actual->Sig != NULL)//Nos aseguramos que haya dos nodos para comparar
-    {
-        Siguiente = Actual->Sig;
-
-        while(Siguiente != NULL)
-        {
-            if(Actual->Info.Nombre > Siguiente->Info.Nombre)
-            {
-                I = Siguiente->Info;
-                Siguiente->Info = Actual->Info;
-                Actual->Info = I;
-            }
-
-            Siguiente = Siguiente->Sig;
-        }
-
-        Actual = Actual->Sig;
-    }
-}
 
 void MostrarLista(Nodo*Lista)
 {
@@ -118,6 +115,6 @@ void MostrarLista(Nodo*Lista)
     {
         cout << "DNI del alumno: " << Aux->Info.DNI << " - " << "Nombre del alumno: " << Aux->Info.Nombre << endl;
 
-        Aux = Aux->Sig;
+        Aux = Aux->Sgte;
     }
 }
