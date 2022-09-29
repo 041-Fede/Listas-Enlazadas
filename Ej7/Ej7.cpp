@@ -1,4 +1,4 @@
-/*Dada una lista doblemente encadenada de números enganchada solo por el puntero al siguiente y con todos los punteros al anterior en NULL, se pide hacer una rutina que la recorra y complete los punteros convenientemente incluyendo el puntero externo para recorrerla de atrás hacia adelante.*/
+/*Dada una lista doblemente encadenada de nÃºmeros enganchada solo por el puntero al siguiente y con todos los punteros al anterior en NULL, se pide hacer una rutina que la recorra y complete los punteros convenientemente incluyendo el puntero externo para recorrerla de atrÃ¡s hacia adelante.*/
 
 #include <iostream>
 
@@ -11,7 +11,7 @@ struct Nodo
 };
 
 void CargaDeDatos(Nodo*&Lista);
-void Insertar(Nodo*&Lista,int Nro);
+void InsertarAdelante(Nodo*&Lista,int Nro);
 void UnirEnlances(Nodo*&Lista);
 void MostrarListaInversa(Nodo*Lista);
 
@@ -20,6 +20,8 @@ int main()
     Nodo *Lista = NULL;
 
     CargaDeDatos(Lista);
+
+    cout << "---------------------------------" << endl;
 
     UnirEnlances(Lista);
 
@@ -41,7 +43,7 @@ void CargaDeDatos(Nodo*&Lista)
 
     while(Nro != 0)
     {
-        Insertar(Lista,Nro);
+        InsertarAdelante(Lista,Nro);
 
         cout << "---------------------------------" << endl;
         cout << "INFORME el siguiente numero a enlazar: ";
@@ -49,29 +51,13 @@ void CargaDeDatos(Nodo*&Lista)
     }
 }
 
-void Insertar(Nodo*&Lista,int Nro)//Inserta elementos sin conservar el orden y teniendo el puntero que señala al anterior en NULL
+void InsertarAdelante(Nodo*&Lista,int Nro)
 {
-    Nodo *Nuevo,*Aux;
-    Nuevo = new Nodo;
+    Nodo *Nuevo = new Nodo;
     Nuevo->Info = Nro;
     Nuevo->Ant = NULL;
-    Nuevo->Sgte = NULL;
-
-    if(Lista != NULL)
-    {
-        Aux = Lista;
-
-        while(Aux->Sgte != NULL)
-        {
-            Aux = Aux->Sgte;
-        }
-
-        Aux->Sgte = Nuevo;
-    }
-    else
-    {
-        Lista = Nuevo;
-    }
+    Nuevo->Sgte = Lista;
+    Lista = Nuevo;
 }
 
 void UnirEnlances(Nodo*&Lista)
@@ -104,38 +90,3 @@ void MostrarListaInversa(Nodo*Lista)
         Aux = Aux->Ant;
     }
 }
-
-//Funciones a necesitar
-/*void Insertar(Nodo*&Lista,int Nro)//Mantener el orden en la lista doblemente enlazada
-{
-    Nodo *Nuevo,*Antecesor,*Aux;
-    Nuevo = new Nodo;
-    Nuevo->Info = Nro;
-    Aux = Lista;
-
-    while(Aux != NULL && Aux->Info < Nro)
-    {
-        Antecesor = Aux;
-        Aux = Aux->Sgte;
-    }
-
-    Nuevo->Sgte = Aux;
-
-    if(Aux != Lista)
-    {
-        if(Aux != NULL)
-        {
-            Aux->Ant = Nuevo;
-        }
-
-        Nuevo->Ant = Antecesor;
-        Antecesor->Sgte = Nuevo;
-    }
-    else
-    {
-        Nuevo->Ant = NULL;
-        Lista = Nuevo;
-    }
-}
-*/
-
