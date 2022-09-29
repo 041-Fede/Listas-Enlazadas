@@ -10,31 +10,30 @@ struct Nodo
     Nodo *Ant,*Sgte;
 };
 
-void CargaDeDatos(Nodo*&Lista);
-void InsertarAdelante(Nodo*&Lista,int Nro);
-void UnirEnlances(Nodo*&Lista);
-void MostrarListaInversa(Nodo*Lista);
+void CargaDeDatos(Nodo*&Primero,Nodo*&Ultimo);
+void InsertarAdelante(Nodo*&Primero,Nodo*&Ultimo,int Nro);
+void UnirEnlances(Nodo*Primero);
+void MostrarListaInversa(Nodo*Ultimo);
 
 int main()
 {
-    Nodo *Lista = NULL;
+    Nodo *Primero = NULL,*Ultimo = NULL;
 
-    CargaDeDatos(Lista);
+    CargaDeDatos(Primero,Ultimo);
+
+    UnirEnlances(Primero);
 
     cout << "---------------------------------" << endl;
-
-    UnirEnlances(Lista);
-
     cout << "Lista en manera inversa: " << endl;
 
-    MostrarListaInversa(Lista);
+    MostrarListaInversa(Ultimo);
 
     cout << "---------------------------------" << endl;
 
     return 0;
 }
 
-void CargaDeDatos(Nodo*&Lista)
+void CargaDeDatos(Nodo*&Lista,Nodo*&Ultimo)
 {
     int Nro;
 
@@ -43,27 +42,33 @@ void CargaDeDatos(Nodo*&Lista)
 
     while(Nro != 0)
     {
-        InsertarAdelante(Lista,Nro);
+        InsertarAdelante(Primero,Ultimo,Nro);
 
         cout << "---------------------------------" << endl;
-        cout << "INFORME el siguiente numero a enlazar: ";
+        cout << "INFORME el siguiente numero a enlazar (0 para finalizar): ";
         cin >> Nro;
     }
 }
 
-void InsertarAdelante(Nodo*&Lista,int Nro)
+void InsertarAdelante(Nodo*&Primero,Nodo*&Ultimo,int Nro)
 {
     Nodo *Nuevo = new Nodo;
     Nuevo->Info = Nro;
     Nuevo->Ant = NULL;
-    Nuevo->Sgte = Lista;
-    Lista = Nuevo;
+    Nuevo->Sgte = Primero;
+
+    if(Primero == NULL)
+    {
+        Ultimo = Nuevo;
+    }
+
+    Primero = Nuevo;
 }
 
-void UnirEnlances(Nodo*&Lista)
+void UnirEnlances(Nodo*Primero)
 {
     Nodo *Aux,*Antecesor;
-    Aux = Lista;
+    Aux = Primero;
     Antecesor = NULL;
 
     while(Aux != NULL)
@@ -74,14 +79,9 @@ void UnirEnlances(Nodo*&Lista)
     }
 }
 
-void MostrarListaInversa(Nodo*Lista)
+void MostrarListaInversa(Nodo*Ultimo)
 {
-    Nodo *Aux = Lista;
-
-    while(Aux->Sgte != NULL)
-    {
-        Aux = Aux->Sgte;
-    }
+    Nodo *Aux = Ultimo;
 
     while(Aux != NULL)
     {
