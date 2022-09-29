@@ -18,7 +18,7 @@ struct Nodo
 
 void CargaDeDatos(Nodo*&Lista);
 void Insertar(Nodo*&Lista,Productos Dato);
-void CorteDeControlListas(Nodo*Lista);
+void CorteDeControlListas(Nodo*&Lista);
 void MostrarLista(Nodo*Lista);
 
 int main()
@@ -88,28 +88,38 @@ void Insertar(Nodo*&Lista,Productos Dato)
     }
 }
 
-void CorteDeControlListas(Nodo*Lista)
+void CorteDeControlListas(Nodo*&Lista)
 {
-    int Stock = 0;
+    int Stock = 0,Repetedidos = 0;
     Nodo *Actual = Lista,*Siguiente,*Aux;
 
     while(Actual != NULL)
     {
-        Siguiente = Actual->Sgte;
+        Siguiente = Actual;
 
-        while(Siguiente != NULL && Actual->Info.CodDeProducto == Siguiente->Info.CodDeProducto)
+        do
         {
             Stock = Stock + Siguiente->Info.Stock;
             Aux = Siguiente;
             Siguiente = Siguiente->Sgte;
 
-            delete Aux;
-        }
+            if(Repetedidos != 0)
+            {
+                delete Aux;
+            }
+            else
+            {
+                Repetedidos++;
+            }
 
-        Actual->Info.Stock = Actual->Info.Stock + Stock;
+        }
+        while(Siguiente != NULL && Actual->Info.CodDeProducto == Siguiente->Info.CodDeProducto);
+
         Actual->Sgte = Siguiente;
+        Actual->Info.Stock = Stock;
         Actual = Siguiente;
         Stock = 0;
+        Repetedidos = 0;
     }
 }
 
