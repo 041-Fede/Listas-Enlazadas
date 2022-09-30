@@ -90,3 +90,50 @@ void MostrarListaInversa(Nodo*Ultimo)
         Aux = Aux->Ant;
     }
 }
+
+//Funciones a necesitar:
+
+/*void Insertar(Nodo*&Primero,Nodo*&Ultimo,int Nro)
+{
+    Nodo *Nuevo,*Antecesor,*Aux;
+    Nuevo = new Nodo;
+    Nuevo->Info = Nro;
+    Aux = Primero;
+
+    while(Aux != NULL && Aux->Info < Nro)
+    {
+        Aux = Aux->Sgte;
+    }
+
+    Nuevo->Sgte = Aux;
+
+    if(Aux != Primero)
+    {
+        if(Aux != NULL)
+        {
+            Antecesor = Aux->Ant;
+            Antecesor->Sgte = Nuevo;
+            Aux->Ant = Nuevo;
+        }
+        else
+        {
+            Ultimo->Sgte = Nuevo;
+            Nuevo->Ant = Ultimo;
+            Ultimo = Nuevo;
+        }
+    }
+    else
+    {
+        if(Primero != NULL)
+        {
+            Primero->Ant = Nuevo;
+        }
+        else
+        {
+            Ultimo = Nuevo;
+        }
+
+        Nuevo->Ant = NULL;
+        Primero = Nuevo;
+    }
+}*/
