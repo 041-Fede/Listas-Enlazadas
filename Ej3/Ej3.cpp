@@ -106,7 +106,6 @@ void InsertarLogico(Nodo*&Lista,Nodo*Nuevo)//Inserta elementos a la lista conser
     }
 }
 
-
 void MostrarLista(Nodo*Lista)
 {
     Nodo *Aux = Lista;
