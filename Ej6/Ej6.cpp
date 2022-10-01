@@ -107,11 +107,8 @@ void CorteDeControlListas(Nodo*&Lista)
             {
                 delete Aux;
             }
-            else
-            {
-                Repetedidos++;
-            }
 
+            Repetedidos++;
         }
         while(Siguiente != NULL && Actual->Info.CodDeProducto == Siguiente->Info.CodDeProducto);
 
