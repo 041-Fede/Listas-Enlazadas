@@ -1,6 +1,6 @@
-/* Dada una lista simple de alumnos (n° de documento y nombre) ordenada por documento.
-De cada alumno depende una sublista de exámenes rendidos (fecha, código y nota).
-Hacer una función que dada la estructura informe número de documento, nombre y promedio de cada alumno*/
+/* Dada una lista simple de alumnos (nÂ° de documento y nombre) ordenada por documento.
+De cada alumno depende una sublista de exÃ¡menes rendidos (fecha, cÃ³digo y nota).
+Hacer una funciÃ³n que dada la estructura informe nÃºmero de documento, nombre y promedio de cada alumno*/
 
 #include <iostream>
 
@@ -41,12 +41,12 @@ int main()
 {
     Nodo *Lista = NULL;
 
-    cout << "Comienzo de la carga de datos de los alumnos: " << endl;
+    cout << "Comienzo de la carga de datos de los alumnos" << endl;
 
     CargaDeDatos(Lista);
 
     cout << "---------------------------------" << endl;
-    cout << "Comienzo de carga de datos de examenes: " << endl;
+    cout << "Comienzo de carga de datos de examenes" << endl;
 
     CargaDeNotas(Lista);
 
@@ -127,7 +127,7 @@ void CargaDeNotas(Nodo*Lista)
 
             while(N.CodDeExamen != 0)
             {
-                cout << "INFORME fecha del examen: ";
+                cout << "INFORME fecha del examen (aaaa/mm/dd): ";
                 cin >> N.Fecha;
 
                 cout << "INFORME nota del examen: ";
@@ -185,7 +185,9 @@ void CalcularPromedio(Nodo*Lista)
         {
             cout << "Nombre del alumno: " << Aux->Info.Nombre << " - " << "DNI del alumno : " << Aux->Info.DNI << " - " << "Promedio del alumno: " << SumaDeNotas/CantDeNotas << endl;
         }
-
+        
+        SumaDeNotas = 0;
+        CantDeNotas = 0;
         Aux = Aux->Sgte;
     }
 }
