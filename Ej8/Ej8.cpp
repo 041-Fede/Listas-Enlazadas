@@ -1,4 +1,4 @@
-/*Dada una lista doblemente encadenada de números eliminar los últimos n nodos*/
+/*Dada una lista doblemente encadenada de nÃºmeros eliminar los Ãºltimos n nodos*/
 
 #include <iostream>
 
@@ -75,20 +75,28 @@ void InsertarAdelante(Nodo*&Primero,Nodo*&Ultimo,int Nro)
     Primero = Nuevo;
 }
 
-void EliminarNodos(Nodo*&Ultimo,int Nro)
+void EliminarNodos(Nodo*&Primero,Nodo*&Ultimo,int Nro)
 {
     int i = 0;
-    Nodo *Aux = Ultimo;
+    Nodo *Aux;
 
-    while(Aux != NULL && i < Nro)
+    while(Ultimo != NULL && i < Nro)
     {
-        Ultimo = Aux->Ant;
-        Ultimo->Sgte = NULL;
+        Aux = Ultimo;
+        Ultimo = Ultimo->Ant;
 
         delete Aux;
 
-        Aux = Ultimo;
         i++;
+    }
+
+    if(Ultimo == NULL)
+    {
+        Primero = NULL;
+    }
+    else
+    {
+        Ultimo->Sgte = NULL;
     }
 }
 
